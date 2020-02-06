@@ -1,0 +1,17 @@
+# Build numbering format
+name: $(BuildID)
+
+trigger:
+  - master
+  - feat/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+schedules:
+  - cron: "0 0 * * Mon"
+    displayName: Weekly midnight build
+    always: true
+    branches:
+      include:
+        - master
