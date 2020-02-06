@@ -1,0 +1,7 @@
+# sets `$(build-sha)` for future steps/jobs
+
+steps:
+  - script: |
+      echo '##vso[task.setvariable variable=build-sha]'$(git rev-parse --short HEAD)''
+      echo 'buildSha set to $(build-sha)'
+    displayName: "Git: get commit sha"

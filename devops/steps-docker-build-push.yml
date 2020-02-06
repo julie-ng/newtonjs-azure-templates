@@ -9,10 +9,10 @@ parameters:
 # Variable Groups - anything prefixed `newton-`
 
 steps:
-  - script: |
-      echo '##vso[task.setvariable variable=build-sha]'$(git rev-parse --short HEAD)''
-      echo 'buildSha set to $(build-sha)'
-    displayName: "Git: get commit sha"
+  # - script: |
+  #     echo '##vso[task.setvariable variable=build-sha]'$(git rev-parse --short HEAD)''
+  #     echo 'buildSha set to $(build-sha)'
+  #   displayName: "Git: get commit sha"
 
   - script: |
       docker build --tag ${{ parameters.snapshotTag }}-$(build-sha) .
