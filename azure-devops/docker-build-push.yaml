@@ -15,8 +15,8 @@ steps:
     displayName: "Git: get commit sha"
 
   - script: |
-      docker build --tag $(snapshot-tag)-$(build-sha) .
-      docker tag $(snapshot-tag)-$(build-sha) $(dev-tag)
+      docker build --tag ${{ parameters.snapshot-tag }}-$(build-sha) .
+      docker tag ${{ parameters.snapshot-tag }}-$(build-sha) ${{ parameters.dev-tag }}
     displayName: "Docker: build and tag image"
 
   - task: Docker@1 # Use the task to avoid embedding credentials in pipeline
@@ -26,10 +26,10 @@ steps:
       azureSubscriptionEndpoint: $(newton-service-connection)
       azureContainerRegistry: $(newton-registry)
 
-  - script: docker push $(snapshot-tag)-$(build-sha)
+  - script: docker push ${{ parameters.snapshot-tag }}-$(build-sha)
     displayName: "Docker: push snapshot"
 
-  - script: docker push $(dev-tag)
+  - script: docker push ${{ parameters.dev-tag }}
     displayName: "Docker: push dev"
 
   - script: docker logout $(newton-registry)
